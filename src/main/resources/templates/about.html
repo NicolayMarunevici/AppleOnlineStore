@@ -1,0 +1,161 @@
+<DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I-Store</title>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{http://localhost:8080/css/style.css}" href="/static/css/style.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    </head>
+    <body>
+
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a th:href="@{/home}"><img th:src="@{/images/logo.png}" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a th:href="@{/home}">Home</a></li>
+                        <li><a th:href="@{/categories}">Products</a></li>
+                        <li><a th:href="@{/about}">About</a></li>
+                        <li><a th:href="@{/contacts}">Contacts</a></li>
+                        <li class="nav-item active">
+                            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">Account</a>
+                        </li>
+                        <li class="nav-item active"><a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="logout" href="#">Logout</a></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item active"><h4 class="cart-title">Cart Items: </h4></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item active"><h4 class="cart-count" th:text="${cartCount}"></h4></li>
+                    </ul>
+                </nav>
+                <a th:href="@{/cart}"><img th:src="@{images/cart.png}" width="30px" height="30px" id="cartId"></a>
+                <img th:src="@{/images/menu.png}" class="menu-icon" onclick="menutoggle()">
+            </div>
+            <div class="about-us">
+                <div class="row">
+                    <div class="col-2">
+                        <img th:src="@{/images/appleimg2.png}" class="offer-right">
+                    </div>
+                    <div class="col-about">
+                        <h2>About IStore Company</h2>
+                        <!-- <h4>IStore - official partner of Apple in Moldova with status Apple Premium</h4> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="about-page">
+        <div class="row">
+            <div class="about-description">
+
+                <!-- <br><br><br><br><br><br> -->
+                <h2 class="h2-about-description">Our story</h2>
+                <!-- IStore - official partner of Apple in Moldova with status Apple Premium -->
+                <!-- <br><br><br> -->
+                <h4>In our stores, you can not only buy an iPhone, a Mac computer or an iPad tablet, as well as other Apple equipment and accessories for it.
+                    First of all, the i-Store is a place imbued with the atmosphere of Apple, where they will help you with the choice of equipment, teach you
+                    how to use it, give advice on the operation of your gadgets and offer high–quality accessories.
+
+                    In iStore, you can work with any Mac, iPhone or iPad, watch demonstrations of Apple products that have recently appeared on sale, or take part
+                    in trainings, master classes and events dedicated to the latest technologies. Just ask and we will find the right course for you. We know everything
+                    about Apple products. And we are ready to share our knowledge.</h4>
+                <div class="about-separate-h4">
+                    <h2>Our Services</h2>
+                    <h4>iStore offers the best possible Apple experience through expert advice and a wide range
+                        of exclusive services that ensure you get the most out of your Apple products for your personal, business and education purchases and upgrades.</h4>
+                </div>
+
+                <h4>Our partners:</h4>
+
+                <div class="brands-about">
+                    <div class="small-container-about">
+                        <div class="row">
+                            <div class="col-5">
+                                <img th:src="@{/images/about-logo1.jpg}">
+                            </div>
+                            <div class="col-5">
+                                <img th:src="@{/images/about-logo2.png}">
+                            </div>
+                            <div class="col-5">
+                                <img th:src="@{/images/about-logo4.png}" id="about-logo4">
+                            </div>
+                            <div class="col-5">
+                                <img th:src="@{/images/about-logo5.png}" id="about-logo5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------footer ------------->
+
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and IOS mobile phone</p>
+                    <div class="app-logo">
+                        <a th:href="@{/play-market.com}"/><img th:src="@{/images/play-store.png}"></a>
+                        <a th:href="@{/app-store.coms}"><img th:src="@{/images/app-store.png}"></a>
+                    </div>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Contacts</h3>
+                    <ul>
+                        <li>Tel: +37370123456</li>
+                        <li>Email: IStore@gmail.com</li>
+                        <li>Address: str.Pushkin 123</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li><a th:href="@{/facebook.com}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/twitter.com}"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/instagram.com}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/youtube.com}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2022</p>
+        </div>
+    </div>
+
+    <!-- ----------------- js for toggle menu ----------------->
+
+    <script>
+        var MenuItem = document.getElementById("MenuItems");
+
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px"){
+                MenuItems.style.maxHeight = "200px";
+            }
+            else{
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+
+
+
+    </script>
+
+
+
+    </body>
+
+    </html>
+</DOCTYPE>

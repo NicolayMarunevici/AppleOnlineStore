@@ -1,0 +1,141 @@
+<DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I-Store</title>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{http://localhost:8080/css/style.css}" href="/static/css/style.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    </head>
+    <body>
+
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a th:href="@{/home}"><img th:src="@{/images/logo.png}" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a th:href="@{/home}">Home</a></li>
+                        <li><a th:href="@{/categories}">Products</a></li>
+                        <li><a th:href="@{/about}">About</a></li>
+                        <li><a th:href="@{/contacts}">Contacts</a></li>
+                        <li>
+                            <a sec:authorize="isAnonymous()" th:href="@{/login}">Account</a>
+                        </li>
+                        <li class="nav-item active"><a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="logout" href="#">Logout</a></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item active"><h4 class="cart-title">Cart Items: </h4></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item active"><h4 class="cart-count" th:text="${cartCount}"></h4></li>
+                    </ul>
+                </nav>
+                <a th:href="@{/cart}"><img th:src="@{/images/cart.png}" width="30px" height="30px" id="cartId"></a>
+                <img th:src="@{/images/menu.png}" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ------------- single product details ---------------->
+
+
+
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img th:src="@{${'/products/' + actualProduct.imageName}}" width = 100% id="ProductImg">
+            </div>
+
+            <div class="col-2">
+                <div class="product-description-detail">
+                <h5 class="h5-detail-name" th:text="${actualProduct.name}"></h5>
+                <h3 th:text="${actualProduct.price + '  $'}"></h3>
+                <a th:href="@{/cart/add/actual/{id}(id = ${actualProduct.id})}" class=btn>Add To Cart</a>
+                <br><br><br>
+                <h4 class="description-detail" th:text="${actualProduct.description}"></h4>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- --------------- title ---------------->
+
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>Actual Products</h2>
+        </div>
+    </div>
+
+    <div class="small-container">
+        <div class="row">
+            <div class="col-4" th:each="product, iStat : ${actualProducts}">
+                <a th:href="@{/products/actual-products/detail-product/{id}(id=${product.id})}"><img th:src="@{${'/products/' + product.imageName}}"></a>
+                <h4 th:text="${product.name}"></h4>
+                <p th:text="${product.price} + ' $'"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------footer ------------->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and IOS mobile phone</p>
+                    <div class="app-logo">
+                        <a th:href="@{/play-market.com}"/><img th:src="@{/images/play-store.png}"></a>
+                        <a th:href="@{/app-store.coms}"><img th:src="@{/images/app-store.png}"></a>
+                    </div>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Contacts</h3>
+                    <ul>
+                        <li>Tel: +37370123456</li>
+                        <li>Email: IStore@gmail.com</li>
+                        <li>Address: str.Pushkin 123</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li><a th:href="@{/facebook.com}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/twitter.com}"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/instagram.com}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a th:href="@{/youtube.com}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2022</p>
+        </div>
+    </div>
+
+
+    <!-- ----------------- js for toggle menu ----------------->
+
+    <script>
+        var MenuItem = document.getElementById("MenuItems");
+
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px"){
+                MenuItems.style.maxHeight = "200px";
+            }
+            else{
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+
+    </body>
+
+    </html>
+</DOCTYPE>

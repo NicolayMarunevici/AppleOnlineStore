@@ -1,0 +1,111 @@
+<DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I-Store</title>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{http://localhost:8080/css/style.css}" href="/static/css/style.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    </head>
+    <body>
+
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a th:href="@{/admin}"><img th:src="@{/images/logo.png}" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a th:href="@{/admin}">Home</a></li>
+                        <li class="nav-item active">
+                            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a th:href="@{/cart}"><img th:src="@{/images/cart.png}" width="30px" height="30px" id="cartId"></a>
+                <img th:src="@{/images/menu.png}" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="user-container">
+        <h2 class="new-user">Add/Update
+            user account</h2>
+        <form th:action="@{/admin/users}" method="post" th:object="${userDTO}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col1">
+
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" required th:field="*{email}" name="email" id="email"
+                               placeholder="Enter Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" required th:field="*{password}" name="password" id="password"
+                               placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" required th:field="*{firstName}" name="firstName" id="firstName"
+                               placeholder="Enter First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" required th:field="*{lastName}" name="lastName" id="lastName"
+                               placeholder="Enter Last Name">
+                    </div>
+
+                </div>
+
+                <div class="col2">
+
+                    <p>Roles</p>
+                    <ul>
+                        <li th:each="role : ${roles}">
+                            <div>
+                                <label>
+                                    <input class="checkbox-class" type="checkbox" th:field="*{roleIds}" th:value="${role.id}">
+                                </label>
+                                <label th:text="${role.name}"></label>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="user-submit-btns">
+                    <button type="submit" class="btn-edit">Submit</button>
+                    <button type="button" class="btn-edit" th:onclick="window.location.href='/admin/users'" href="#">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- ----------------- js for toggle menu ----------------->
+
+    <script>
+        var MenuItem = document.getElementById("MenuItems");
+
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px"){
+                MenuItems.style.maxHeight = "200px";
+            }
+            else{
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+    </body>
+    </html>
+</DOCTYPE>
