@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
-
-    @Autowired
     private ActualProductRepository actualProductRepository;
 
-
+    @Autowired
+    public ProductController(ProductService productService, ActualProductRepository actualProductRepository) {
+        this.productService = productService;
+        this.actualProductRepository = actualProductRepository;
+    }
 
     @GetMapping("category/{id}")
     public String getProductCategorie(@PathVariable int id, Model model){

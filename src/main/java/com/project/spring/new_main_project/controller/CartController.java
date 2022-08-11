@@ -16,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cart")
 @Controller
 public class CartController {
-    @Autowired
+
     private ProductService productService;
+    private ActualProductRepository actualProductRepository;
+
 
     @Autowired
-    private ActualProductRepository actualProductRepository;
+    public CartController(ProductService productService, ActualProductRepository actualProductRepository){
+        this.productService = productService;
+        this.actualProductRepository = actualProductRepository;
+    }
 
     @GetMapping
     public String getCart(Model model){

@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    @Autowired
     private ActualProductRepository actualProductRepository;
-
-
-    @Autowired
     private ProductService productService;
-
-    @Autowired
     private ProductServiceImpl productServiceImpl;
 
-
+    @Autowired
+    public HomeController(ActualProductRepository actualProductRepository, ProductService productService, ProductServiceImpl productServiceImpl) {
+        this.actualProductRepository = actualProductRepository;
+        this.productService = productService;
+        this.productServiceImpl = productServiceImpl;
+    }
 
     @GetMapping
     public String getHome(Model model){

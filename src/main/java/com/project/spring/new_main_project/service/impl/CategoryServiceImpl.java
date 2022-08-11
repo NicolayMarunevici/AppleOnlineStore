@@ -6,14 +6,19 @@ import com.project.spring.new_main_project.repository.CategoryRepository;
 import com.project.spring.new_main_project.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
-    CategoryRepository categoryRepository;
+
+    private CategoryRepository categoryRepository;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<Category> getAllCategory(){
         return categoryRepository.findAll();
@@ -28,5 +33,4 @@ public class CategoryServiceImpl implements CategoryService {
     public Optional<Category> getCategoryById(int id){
         return categoryRepository.findById(id);
     }
-
 }

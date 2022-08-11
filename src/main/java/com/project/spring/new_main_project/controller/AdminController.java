@@ -31,20 +31,23 @@ import java.util.Optional;
 public class AdminController {
     public static String uploadDirProduct = System.getProperty("user.dir") + "/src/main/resources/static/products";
     public static String uploadDirCategory = System.getProperty("user.dir") + "/src/main/resources/static/categories";
-    @Autowired
+
     private PasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private CategoryService categoryService;
-
-    @Autowired
     private ProductService productService;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private RoleService roleService;
+
+
+    @Autowired // Autowired injection?
+    public AdminController(PasswordEncoder passwordEncoder, CategoryService categoryService, ProductService productService, UserService userService, RoleService roleService){
+        this.bCryptPasswordEncoder = passwordEncoder;
+        this.categoryService = categoryService;
+        this.productService = productService;
+        this.userService = userService;
+        this.roleService = roleService;
+    }
+
 
     @GetMapping
     public String adminHome(Model model){

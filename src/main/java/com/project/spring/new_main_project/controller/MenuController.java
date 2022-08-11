@@ -20,8 +20,12 @@ import java.util.List;
 @Controller
 public class MenuController {
 
-    @Autowired
     private ContactFormRepository contactFormRepository;
+
+    @Autowired
+    public MenuController(ContactFormRepository contactFormRepository) {
+        this.contactFormRepository = contactFormRepository;
+    }
 
     @GetMapping("/contacts")
     public String getContact(Model model){

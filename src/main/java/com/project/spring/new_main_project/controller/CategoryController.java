@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/categories")
 @Controller
 public class CategoryController {
+    private CategoryService categoryService;
 
     @Autowired
-    private CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping
     public String getCategories(Model model){

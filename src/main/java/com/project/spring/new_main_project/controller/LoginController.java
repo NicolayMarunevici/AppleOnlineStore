@@ -34,20 +34,22 @@ import java.util.List;
 @RequestMapping("/login")
 @Controller
 public class LoginController {
-    @Autowired
+
     private PasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private RoleRepository roleRepository;
+    private JavaMailSender mailSender;
+
 
     @Autowired
-    private JavaMailSender mailSender;
+    public LoginController(PasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, UserService userService, RoleRepository roleRepository, JavaMailSender mailSender) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.roleRepository = roleRepository;
+        this.mailSender = mailSender;
+    }
 
     @RequestMapping
     public String login(){

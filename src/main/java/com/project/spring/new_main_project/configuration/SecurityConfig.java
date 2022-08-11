@@ -17,11 +17,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    CustomUserService userDetailService;
+
+    private CustomUserService userDetailService;
+    private GoogleOAuth2SuccessHandler oAuth2SuccessHandler;
+
 
     @Autowired
-    GoogleOAuth2SuccessHandler oAuth2SuccessHandler;
+    public SecurityConfig(CustomUserService userDetailService, GoogleOAuth2SuccessHandler oAuth2SuccessHandler) {
+        this.userDetailService = userDetailService;
+        this.oAuth2SuccessHandler = oAuth2SuccessHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,8 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
-
                 //thymeleaf already has token, so disable csrf
                 .and()
                 .csrf()
@@ -70,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
-    }//ma hoa password
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -24,15 +24,17 @@ import java.util.List;
 @Component
 public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
